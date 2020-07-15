@@ -1,0 +1,63 @@
+{%  extends 'web_app/base.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-6">
+		<h5> Job Postings:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'jobpost' %}">Add job posting</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Job name</th>
+					<th>Desciption</th>
+				</tr>
+
+				{% for job in jobpostings %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="">View</a></td>
+						<td>{{job.title}}</td>
+						<td>{{job.description}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<h5> Skills:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'add_skills' %}">Add Skill</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Skill name</th>
+					<th>Job with the skill</th>
+				</tr>
+
+				{% for skill in skills %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="{% url 'skill' skill.id %}">View</a></td>
+						<td>{{skill.skill_name}}</td>
+						<td>
+						{% for job in skills.jobs %}
+							{{job}},
+						{% endfor %}
+						</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
+
