@@ -14,7 +14,12 @@ def candidate_profile(sender, instance, created, **kwargs):
 			)
 		print('Profile created!')
 
+
 post_save.connect(candidate_profile, sender=User)
+
+#post_save.connect(jobapply,sender = Job_applications)
+
+
 
 
 #def submit_resume(sneder, instance, create)

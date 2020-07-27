@@ -26,3 +26,11 @@ class JobPostForm(ModelForm):
     class Meta:
         model = Job_postings
         fields = '__all__'
+
+class JobApplyForm(ModelForm):
+	class Meta:
+		model = Job_postings
+		fields = ['id',]
+		#exclude = ['applicant','post','is_shortlisted','is_approved','evaluated_score']
+
+

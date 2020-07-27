@@ -19,6 +19,11 @@
 					<td>{{job.description}}</td>
 					<td>{{job.company}}</td>
 					<td>{{job.job_address}}</td>
+					<form method="POST" action="" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{form.as_p}}
+					<td><input class="btn btn-primary" type="Submit" value="Apply"/></td>
+					</form>
 				</tr>
 				{% endfor %}
 

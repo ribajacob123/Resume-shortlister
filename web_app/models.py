@@ -43,4 +43,4 @@ class Job_applications(models.Model):
     is_approved = models.BooleanField(default=False)
     evaluated_score = models.IntegerField(default=0)
     def __str__(self):
-        return self.post.title
+        return self.applicant

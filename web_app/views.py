@@ -68,10 +68,18 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['candidate'])
 def userPage(request):
-
+	applicant = request.user.profile
+	form = JobApplyForm(instance=applicant)
+	if request.method == 'POST':
+		form = JobApplyForm(request.POST,instance = applicant)
+		print("\n Job Application Created for {}!!\n".format(applicant))
+		print(request.POST)
+		print(applicant)
+		if form.is_valid():
+			form.save()
 	jobpostings = Job_postings.objects.all()
 	#print('ORDERS:', orders)
-	context = {'jobpostings':jobpostings}
+	context = {'jobpostings':jobpostings,'form':form}
 	return render(request, 'web_app/user.html', context)
 
 
@@ -121,5 +129,6 @@ def jobpost(request):
 			return redirect('/')
 	context = {'form': form,}
 	return render(request, "web_app/jobpost.html", context)
+
 
 
