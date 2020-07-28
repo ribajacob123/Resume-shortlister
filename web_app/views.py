@@ -68,20 +68,19 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['candidate'])
 def userPage(request):
-	applicant = request.user.profile
-	form = JobApplyForm(instance=applicant)
 	if request.method == 'POST':
-		form = JobApplyForm(request.POST,instance = applicant)
-		print("\n Job Application Created for {}!!\n".format(applicant))
 		print(request.POST)
-		print(applicant)
-		if form.is_valid():
-			form.save()
+		jobid = int(request.POST.get("jobid"))
+		Job_post= Job_postings.objects.get(id=jobid)
+		Job_applications.objects.get_or_create(applicant = request.user , post = Job_post)
 	jobpostings = Job_postings.objects.all()
-	#print('ORDERS:', orders)
-	context = {'jobpostings':jobpostings,'form':form}
+	applied_ids = Job_applications.objects.filter(applicant= request.user).values_list("post",flat=True)
+	applied_jobs = Job_postings.objects.filter(id__in = applied_ids)
+	new_jobs = Job_postings.objects.exclude(id__in = applied_ids)
+	print(applied_ids)
+	print(new_jobs)
+	context = {'jobpostings':jobpostings,'applied_jobs':applied_jobs,'new_jobs':new_jobs}
 	return render(request, 'web_app/user.html', context)
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['candidate'])
