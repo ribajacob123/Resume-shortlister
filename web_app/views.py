@@ -60,6 +60,11 @@ def logoutUser(request):
 @login_required(login_url='login')
 @admin_only
 def home(request):
+	if request.method == 'POST':
+		jobid = int(request.POST.get('jobid'))
+		jobpost = Job_postings.objects.get(id=jobid)
+		print(jobpost)
+		jobpost.delete()
 	jobpostings = Job_postings.objects.all()
 	skills = Skills.objects.all()
 	context = {'jobpostings':jobpostings,'skills':skills}
@@ -128,6 +133,7 @@ def jobpost(request):
 			return redirect('/')
 	context = {'form': form,}
 	return render(request, "web_app/jobpost.html", context)
+
 
 
 

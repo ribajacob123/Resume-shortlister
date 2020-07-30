@@ -15,6 +15,7 @@
 					<th></th>
 					<th>Job name</th>
 					<th>Desciption</th>
+					<th></th>
 				</tr>
 
 				{% for job in jobpostings %}
@@ -22,6 +23,11 @@
 						<td><a class="btn btn-sm btn-info" href="">View</a></td>
 						<td>{{job.title}}</td>
 						<td>{{job.description}}</td>
+						<form method="POST" action="" enctype="multipart/form-data">
+							{% csrf_token %}
+							<input type="hidden" name="jobid" value="{{job.id}}"/>
+							<td><input class="btn btn-sm btn-danger" type="Submit" value="Delete"/></td>
+						</form>
 					</tr>
 				{% endfor %}
 
