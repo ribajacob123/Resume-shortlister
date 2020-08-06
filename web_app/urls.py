@@ -18,7 +18,7 @@ urlpatterns = [
     path('addskills/', views.add_skills, name='add_skills'),
     path('jobpost/', views.jobpost, name='jobpost'),
     path('createprofile/', views.createprofile, name="createprofile"),
-    #path('updateprofile/<str:pk>/', views.updateprofile, name="updateprofile"),
+    #path('jobapplications/<str:pk>/', views.jobapplications, name="jobapplications"),
     #path('delete_order/<str:pk>/', views.deleteOrder, name="delete_order"),
 
 

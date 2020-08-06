@@ -18,30 +18,23 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 
 @unauthenticated_user
 def registerPage(request):
-
 	form = CreateUserForm()
 	if request.method == 'POST':
 		form = CreateUserForm(request.POST)
 		if form.is_valid():
 			user = form.save()
 			username = form.cleaned_data.get('username')
-
-
 			messages.success(request, 'Account was created for ' + username)
-
 			return redirect('login')
-		
-
 	context = {'form':form}
 	return render(request, 'web_app/register.html', context)
 
+
 @unauthenticated_user
 def loginPage(request):
-
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password =request.POST.get('password')
-
 		user = authenticate(request, username=username, password=password)
 
 		if user is not None:
@@ -133,7 +126,10 @@ def jobpost(request):
 			return redirect('/')
 	context = {'form': form,}
 	return render(request, "web_app/jobpost.html", context)
-
-
-
-
+'''
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles = ['admin'])
+def jobapplications(request,pk):
+	jobpost = Job_postings.
+	context = 
+'''
